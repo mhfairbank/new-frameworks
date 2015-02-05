@@ -129,45 +129,20 @@ var storeMessage = function(name, data){
 }
 
 messages.forEach(function(message){
-	
+
 })
 
+var redis = require('redis');
+var client = redis.createClient();
 
+client.set("message1", "content1");
+client.set("message2", "content2");
 
+client.get("message1", function(err, reply){
+	console.log(reply);
+});
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+client.lpush("messages", message, function(err, reply){
+	console.log(reply) // optional callback. returns with length of list
+	client.ltrim("messages", 0, 1);
+});
